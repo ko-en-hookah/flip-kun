@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}さんのフリップ - フリップくん</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        #answer_open {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* adjust as needed */
+        }
+        #answer {
+            position: absolute;
+            text-align: center;
+            font-size: 100px;
+            width: 1000px; /* adjust as needed */
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <!-- 回答がクローズの時の表示領域 -->
+    <div id="answer_close">
+        <img id="cover" src="/img/flip_cover.png" width="1280">
+    </div>
+
+    <!-- 回答がオープンの時の表示領域 -->
+    <div id="answer_open">
+        <img id="flame" src="/img/flip_flame.png" width="1280">
+        <p id="answer"></p>
+    </div>
+
+    <script>
+        const server_url = new XMLHttpRequest();
+        name = {{ name|tojson }};
+
+        // フレームがオープンされたときの処理
+        const answer_open = (answer) => {
+            // 画像の差し替え
+            document.getElementById('cover').style.display = 'none';
+            document.getElementById('flame').style.display = '';
+
+            // 回答の表示
+            document.getElementById('answer').innerHTML = answer;
+            document.getElementById('answer').style.display = '';
+        }
+
+        // フレームがクローズされたときの処理
+        const answer_close = () => {
+            // 回答の非表示
+            document.getElementById('answer').style.display = 'none';
+
+            // 画像の差し替え
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('cover').style.display = '';
+        }
+
+        // サーバーからのレスポンスを受け取ったタイミングで処理を行う
+        server_url.onload = function(){
+            const data = JSON.parse(server_url.responseText);
+            if (data['open'] === true){
+                // オープン時の処理
+                answer_open(data.answer);
+            } else {
+                // クローズ時の処理
+                answer_close();
+            }
+        }
+
+        // 1秒ごとにサーバーにリクエストを送る
+        window.setInterval(() => {
+            server_url.open('GET', `http://127.0.0.1:5000/api/status/get_answer_and_open_status/?name=${name}`);
+            server_url.send();
+        }, 1000);
+    </script>
+</body>
+</html>
