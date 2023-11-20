@@ -26,6 +26,12 @@ pip install discord.py
 pip install Flask
 ```
 
+3. requestsのインストール
+
+```Bash
+pip install requests
+```
+
 必要に応じてvenvを構築してください。
 
 ## 実行
