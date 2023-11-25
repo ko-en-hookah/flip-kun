@@ -13,9 +13,6 @@
     </head>
     <body>
         <h1>フリップくん管理画面</h1>
-        <h2>トークン設定</h2>
-        <input type="text" id="token">
-        <button onclick="set_token()">トークンを設定</button>
         <h2>参加者リスト</h2>
         <ul id="attendance-list"></ul>
         <button onclick="answer_open_all()">回答全オープン</button>
@@ -46,27 +43,6 @@
                 url_user_data.open('GET', endpoint + '/api/status/get_user_data/', true);
                 url_user_data.send();
             }, 1000);
-
-            // トークン設定
-            const set_token = function() {
-                const url_set_token = new XMLHttpRequest();
-                request_data = {
-                    'token': document.getElementById('token').value
-                };
-                url_set_token.open('POST', endpoint + '/api/set_token/');
-                url_set_token.setRequestHeader( 'Content-Type', 'application/json');
-                url_set_token.send(JSON.stringify(request_data));
-
-                // 送信時の処理
-                url_set_token.onload = function() {
-                    const data = url_set_token.responseText;
-                    if(data === 'ok') {
-                        alert('トークンを設定しました');
-                    } else {
-                        alert('トークンの設定に失敗しました');
-                    }
-                }
-            }
 
             // 回答受付状況
             const url_answer_recieving_status = new XMLHttpRequest();
