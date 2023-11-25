@@ -37,6 +37,7 @@
     </div>
 
     <script>
+        const endpoint = {{ endpoint|tojson }};
         const server_url = new XMLHttpRequest();
         name = {{ name|tojson }};
 
@@ -75,7 +76,7 @@
 
         // 1秒ごとにサーバーにリクエストを送る
         window.setInterval(() => {
-            server_url.open('GET', `http://127.0.0.1:5000/api/status/get_answer_and_open_status/?name=${name}`);
+            server_url.open('GET', `${endpoint}/api/status/get_answer_and_open_status/?name=${name}`);
             server_url.send();
         }, 1000);
     </script>
