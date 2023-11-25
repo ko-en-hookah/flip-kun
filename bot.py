@@ -1,3 +1,12 @@
+# dotenvのセットアップ
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
+
+# DiscordBotToken
+discord_bot_token = os.environ.get('DISCORD_TOKEN')
+
 # バージョン情報
 version = '0.1'
 
@@ -17,7 +26,6 @@ def check_connection_to_server():
     global discord_bot_token
     connection_status = requests.get(server_url + '/api/check_connection/')
     if connection_status.json()['status'] == 'ok':
-        discord_bot_token = connection_status.json()['token']
         return 'ok'
     else:
         return 'error'

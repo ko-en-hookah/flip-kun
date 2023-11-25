@@ -1,3 +1,11 @@
+# dotenvの初期化
+from dotenv import load_dotenv
+import os
+
+load_dotenv('.env')
+
+endpoint = os.environ.get('ENDPOINT')
+
 # Flask初期化
 from flask import Flask, request, render_template, jsonify
 app = Flask(__name__, static_folder='./templates/img')
@@ -14,14 +22,13 @@ discord_bot_token = ''
 # 管理画面リクエスト
 @app.route('/')
 def root():
-    return render_template('index.html')
+    return render_template('index.html', endpoint=endpoint)
 
 # 疎通確認API
 @app.route('/api/check_connection/', methods=['GET'])
 def connection_check():
     res = {
         'status': 'ok',
-        'token': discord_bot_token
     }
     return res, 200
 
@@ -164,7 +171,7 @@ def answer():
 def flip(name):
     if check_attendance(name):
         # 参加者だった場合の処理
-        return render_template('flip.html', name=name), 200
+        return render_template('flip.html', name=name, endpoint=endpoint), 200
     else:
         return render_template('404.html'), 404
     
