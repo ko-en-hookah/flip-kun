@@ -1,3 +1,12 @@
+# dotenvの初期化
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+endpoint = os.environ.get('ENDPOINT')
+
 # Flask初期化
 from flask import Flask, request, render_template, jsonify
 app = Flask(__name__, static_folder='./templates/img')

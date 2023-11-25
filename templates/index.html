@@ -26,6 +26,10 @@
         <button onclick="answer_recieve_end()">回答受付終了</button>
         <script>
 
+            // エンドポイント取得
+
+            const endpoint = {{ endpoint|tojson }};
+
             // user_data更新
             const url_user_data = new XMLHttpRequest();
 
@@ -39,7 +43,7 @@
             };
 
             window.setInterval(() => {
-                url_user_data.open('GET', 'http://127.0.0.1:5000/api/status/get_user_data/', true);
+                url_user_data.open('GET', endpoint + '/api/status/get_user_data/', true);
                 url_user_data.send();
             }, 1000);
 
@@ -49,7 +53,7 @@
                 request_data = {
                     'token': document.getElementById('token').value
                 };
-                url_set_token.open('POST', 'http://127.0.0.1:5000/api/set_token/');
+                url_set_token.open('POST', endpoint + '/api/set_token/');
                 url_set_token.setRequestHeader( 'Content-Type', 'application/json');
                 url_set_token.send(JSON.stringify(request_data));
 
@@ -77,21 +81,21 @@
             }
 
             window.setInterval(() => {
-                url_answer_recieving_status.open('GET', 'http://127.0.0.1:5000/api/status/check_answer_recieving_status/');
+                url_answer_recieving_status.open('GET', endpoint + '/api/status/check_answer_recieving_status/');
                 url_answer_recieving_status.send();
             }, 1000);
 
             // 回答受付開始
             const answer_recieve_start = function() {
                 const url_answer_recieve_start = new XMLHttpRequest();
-                url_answer_recieve_start.open('POST', 'http://127.0.0.1:5000/api/status/answer_recieving_true/');
+                url_answer_recieve_start.open('POST', endpoint + '/api/status/answer_recieving_true/');
                 url_answer_recieve_start.send();
             }
 
             // 回答受付終了
             const answer_recieve_end = function() {
                 const url_answer_recieve_end = new XMLHttpRequest();
-                url_answer_recieve_end.open('POST', 'http://127.0.0.1:5000/api/status/answer_recieving_false/');
+                url_answer_recieve_end.open('POST', endpoint + '/api/status/answer_recieving_false/');
                 url_answer_recieve_end.send();
             }
 
@@ -101,7 +105,7 @@
                 request_data = {
                     'name': name
                 };
-                url_delete_user.open('DELETE', 'http://127.0.0.1:5000/api/user/delete/');
+                url_delete_user.open('DELETE', endpoint + '/api/user/delete/');
                 url_delete_user.setRequestHeader( 'Content-Type', 'application/json');
                 url_delete_user.send(JSON.stringify(request_data));
             }
@@ -109,14 +113,14 @@
             // 回答全クローズ
             const answer_close_all = function() {
                 const url_answer_close_all = new XMLHttpRequest();
-                url_answer_close_all.open('POST', 'http://127.0.0.1:5000/api/status/answer_close_all/');
+                url_answer_close_all.open('POST', endpoint + '/api/status/answer_close_all/');
                 url_answer_close_all.send();
             }
 
             // 回答を全オープン
             const answer_open_all = function() {
                 const url_answer_open_all = new XMLHttpRequest();
-                url_answer_open_all.open('POST', 'http://127.0.0.1:5000/api/status/answer_open_all/');
+                url_answer_open_all.open('POST', endpoint + '/api/status/answer_open_all/');
                 url_answer_open_all.send();
             }
 
@@ -126,7 +130,7 @@
                 request_data = {
                     'name': name
                 };
-                url_answer_open.open('POST', 'http://127.0.0.1:5000/api/status/answer_open/');
+                url_answer_open.open('POST', endpoint + '/api/status/answer_open/');
                 url_answer_open.setRequestHeader( 'Content-Type', 'application/json');
                 url_answer_open.send(JSON.stringify(request_data));
             }
@@ -137,7 +141,7 @@
                 request_data = {
                     'name': name
                 };
-                url_answer_close.open('POST', 'http://127.0.0.1:5000/api/status/answer_close/');
+                url_answer_close.open('POST', endpoint + '/api/status/answer_close/');
                 url_answer_close.setRequestHeader( 'Content-Type', 'application/json');
                 url_answer_close.send(JSON.stringify(request_data));
             }
