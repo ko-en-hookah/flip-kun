@@ -32,7 +32,23 @@ pip install Flask
 pip install requests
 ```
 
+4. dotenvのインストール
+
+```Bash
+pip install python-dotenv
+```
+
 必要に応じてvenvを構築してください。
+
+5. .envファイルの作成
+
+example_.envを参考に、.envファイルを作ってください。
+必要な環境変数は以下。
+
+- ENDPOINT
+  - サーバーのエンドポイントとなります。基本的にはexample_.envに記載されている`http://127.0.0.1:5000`で問題ないです。
+- DISCORD_TOKEN
+  - Discord Developer Portalで作成したApplicationのtokenを入力してください。
 
 ## 実行
 
