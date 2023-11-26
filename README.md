@@ -60,9 +60,7 @@ flask --app server run
 
 2. `http://127.0.0.1:5000`にアクセスする(以下、管理画面)
 
-3. 「トークン設定」欄からDiscord botトークンを設定する
-
-4. `bot.py`を実行する
+3. `bot.py`を実行する
 
 ```Bash
 python app.py
