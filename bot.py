@@ -8,7 +8,7 @@ load_dotenv('.env')
 discord_bot_token = os.environ.get('DISCORD_TOKEN')
 
 # バージョン情報
-version = '0.1'
+version = '0.1.1'
 
 # discord.py関連のセットアップ
 import discord
@@ -40,6 +40,11 @@ else:
 # メッセージ発出時
 @client.event
 async def on_message(message):
+
+    # ヘルプコマンド
+    if client.user in message.mentions:
+        if message.content.endswith('help'):
+            await message.channel.send('以下のコマンドが利用できます。\n\n@Bot server status\n@Bot version\n@Bot member\n\n詳細は、GitHub上の[README.md](https://github.com/ko-en-hookah/flip-kun)をご覧ください。')
 
     # 疎通確認コマンド
     if client.user in message.mentions:
