@@ -4,6 +4,10 @@ import os
 
 load_dotenv('.env')
 
+# 正規表現ライブラリのセットアップ
+
+import re
+
 # DiscordBotToken
 discord_bot_token = os.environ.get('DISCORD_TOKEN')
 
@@ -48,21 +52,21 @@ async def on_message(message):
 
     # 疎通確認コマンド
     if client.user in message.mentions:
-        if message.content.endswith('server status'):
+        if re.search('server status', message.content):
             res = check_connection_to_server()
-            if res.text == 'ok':
+            if res == 'ok':
                 await message.channel.send('サーバーと接続しています')
             else:
                 await message.channel.send('サーバーとの接続が確認できません')
 
     # バージョン確認コマンド
     if client.user in message.mentions:
-        if message.content.endswith('version'):
+        if re.search('version', message.content):
             await message.channel.send(f'バージョン：{version}')
 
     # memberコマンド
     if client.user in message.mentions:
-        if message.content.endswith('member'):
+        if re.search('member', message.content):
             await message.channel.send('利用者をセットします。\n参加者は、本投稿に何かしらのリアクションをつけてください。')
 
     # memberコマンドのセルフリアクション
