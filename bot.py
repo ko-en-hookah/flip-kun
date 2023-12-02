@@ -12,7 +12,7 @@ import re
 discord_bot_token = os.environ.get('DISCORD_TOKEN')
 
 # バージョン情報
-version = '0.1.1'
+version = '0.1.2'
 
 # discord.py関連のセットアップ
 import discord
