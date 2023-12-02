@@ -32,14 +32,6 @@ def connection_check():
     }
     return res, 200
 
-# Discord bot token登録API
-@app.route('/api/set_token/', methods=['POST'])
-def set_token():
-    global discord_bot_token
-    payload = request.json
-    discord_bot_token = payload.get('token')
-    return 'ok', 201
-
 # ユーザー登録API
 @app.route('/api/user/add', methods=['POST'])
 def add_user():
